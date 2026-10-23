@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users | LMS Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/forms.css">
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">A</div>
+                <div>
+                    <h2 class="text-white font-bold text-base leading-tight">Admin Portal</h2>
+                    <p class="text-xs text-slate-400">LMS Control Center</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="laboratories.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    Laboratories
+                </a>
+                <a href="users.html" class="nav-item active">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    Users
+                </a>
+                <a href="lab-details.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    Laboratory Details
+                </a>
+                <a href="reports.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Reports
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../logout" class="nav-item text-red-400 hover:text-red-300 hover:bg-red-500/10">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Sign Out
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <h1 class="text-xl font-bold text-slate-800">User Management</h1>
+                <div class="flex items-center gap-2">
+                    <button onclick="openAddAdminModal()" class="px-3 py-1.5 text-xs font-semibold bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                        + Add Admin
+                    </button>
+                    <button onclick="openAddFacultyModal()" class="btn btn-secondary text-xs">
+                        + Add Faculty
+                    </button>
+                    <button onclick="openAddStudentModal()" class="btn btn-primary text-xs">
+                        + Add Student
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <!-- Notifications -->
+                <div id="alertMsg" class="hidden mb-6 p-4 rounded-xl text-sm font-medium"></div>
+
+                <!-- Tabs & Filter Bar -->
+                <div class="card mb-6">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex flex-wrap gap-2">
+                            <button id="tabStudents" onclick="switchTab('students')" class="px-4 py-2 text-sm font-semibold rounded-lg bg-blue-600 text-white">
+                                Students
+                            </button>
+                            <button id="tabFaculty" onclick="switchTab('faculty')" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">
+                                Faculty
+                            </button>
+                            <button id="tabAdmins" onclick="switchTab('admins')" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">
+                                Administrators
+                            </button>
+                            <button id="tabAll" onclick="switchTab('all')" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">
+                                All System Users
+                            </button>
+                        </div>
+                        <input type="text" id="searchInput" onkeyup="filterUsers()" placeholder="Search by name, roll, email..." class="px-4 py-2 text-sm border border-slate-300 rounded-lg w-full sm:w-64 outline-none focus:border-blue-500">
+                    </div>
+                </div>
+
+                <!-- Users Table Card -->
+                <div class="card">
+                    <div class="data-table-container">
+                        <table class="data-table">
+                            <thead id="usersTableHead">
+                                <!-- Dynamic headers based on tab -->
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <tr>
+                                    <td colspan="7" class="text-center py-6 text-slate-400">Loading user directory...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Student Modal -->
+    <div id="studentModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-5">
+                <h3 id="studentModalTitle" class="text-lg font-bold text-slate-800">Add New Student</h3>
+                <button type="button" onclick="closeStudentModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+            </div>
+
+            <form id="studentForm" onsubmit="saveStudent(event)">
+                <input type="hidden" id="studentId" name="id">
+                <input type="hidden" id="studentAction" name="action" value="add_student">
+
+                <div class="form-row mb-4">
+                    <div class="form-group">
+                        <label class="form-label" for="sName">Full Name *</label>
+                        <input type="text" id="sName" name="name" required placeholder="Aarav Sharma" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="sEmail">Email Address *</label>
+                        <input type="email" id="sEmail" name="email" required placeholder="student@college.edu" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row mb-4">
+                    <div class="form-group">
+                        <label class="form-label" for="sUsername">Username *</label>
+                        <input type="text" id="sUsername" name="username" required placeholder="aaravs" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="sRoll">Roll Number *</label>
+                        <input type="text" id="sRoll" name="rollNumber" required placeholder="CS2026-001" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row mb-4">
+                    <div class="form-group">
+                        <label class="form-label" for="sDept">Department *</label>
+                        <select id="sDept" name="department" class="form-control">
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Electronics & Communication">Electronics & Communication</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="sSemester">Semester *</label>
+                        <select id="sSemester" name="semester" class="form-control">
+                            <option value="Semester 1">Semester 1</option>
+                            <option value="Semester 2">Semester 2</option>
+                            <option value="Semester 3">Semester 3</option>
+                            <option value="Semester 4">Semester 4</option>
+                            <option value="Semester 5" selected>Semester 5</option>
+                            <option value="Semester 6">Semester 6</option>
+                            <option value="Semester 7">Semester 7</option>
+                            <option value="Semester 8">Semester 8</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row mb-4">
+                    <div class="form-group">
+                        <label class="form-label" for="sSection">Section</label>
+                        <input type="text" id="sSection" name="section" value="Section A" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="sPhone">Phone</label>
+                        <input type="text" id="sPhone" name="phone" placeholder="9876543210" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group mb-6" id="sPassGroup">
+                    <label class="form-label" for="sPassword">Default Password</label>
+                    <input type="password" id="sPassword" name="password" placeholder="Leave empty for student123" class="form-control">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" onclick="closeStudentModal()" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Faculty Modal -->
+    <div id="facultyModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-5">
+                <h3 id="facultyModalTitle" class="text-lg font-bold text-slate-800">Add New Faculty</h3>
+                <button type="button" onclick="closeFacultyModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+            </div>
+
+            <form id="facultyForm" onsubmit="saveFaculty(event)">
+                <input type="hidden" id="facultyId" name="id">
+                <input type="hidden" id="facultyAction" name="action" value="add_faculty">
+
+                <div class="form-row mb-4">
+                    <div class="form-group">
+                        <label class="form-label" for="fName">Full Name *</label>
+                        <input type="text" id="fName" name="name" required placeholder="Dr. Alan Turing" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="fEmail">Email Address *</label>
+                        <input type="email" id="fEmail" name="email" required placeholder="faculty@college.edu" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row mb-4">
+                    <div class="form-group">
+                        <label class="form-label" for="fUsername">Username *</label>
+                        <input type="text" id="fUsername" name="username" required placeholder="aturing" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="fEmpId">Employee ID *</label>
+                        <input type="text" id="fEmpId" name="employeeId" required placeholder="EMP-CS-205" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row mb-4">
+                    <div class="form-group">
+                        <label class="form-label" for="fDept">Department *</label>
+                        <select id="fDept" name="department" class="form-control">
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Electronics & Communication">Electronics & Communication</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="fDesignation">Designation *</label>
+                        <select id="fDesignation" name="designation" class="form-control">
+                            <option value="Assistant Professor">Assistant Professor</option>
+                            <option value="Associate Professor">Associate Professor</option>
+                            <option value="Professor">Professor</option>
+                            <option value="Lab Technician">Lab Technician</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row mb-6">
+                    <div class="form-group">
+                        <label class="form-label" for="fPhone">Phone</label>
+                        <input type="text" id="fPhone" name="phone" placeholder="9876543210" class="form-control">
+                    </div>
+                    <div class="form-group" id="fPassGroup">
+                        <label class="form-label" for="fPassword">Default Password</label>
+                        <input type="password" id="fPassword" name="password" placeholder="Leave empty for faculty123" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" onclick="closeFacultyModal()" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Faculty</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Modal -->
+    <div id="adminModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200 mb-5">
+                <h3 id="adminModalTitle" class="text-lg font-bold text-slate-800">Add New Administrator</h3>
+                <button type="button" onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+            </div>
+
+            <form id="adminForm" onsubmit="saveAdmin(event)">
+                <input type="hidden" id="adminId" name="id">
+                <input type="hidden" id="adminAction" name="action" value="add_admin">
+
+                <div class="form-row mb-4">
+                    <div class="form-group">
+                        <label class="form-label" for="aName">Full Name</label>
+                        <input type="text" id="aName" name="name" required placeholder="e.g. Dr. Robert Chen" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="aEmail">Email Address</label>
+                        <input type="email" id="aEmail" name="email" required placeholder="admin@college.edu" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row mb-4">
+                    <div class="form-group">
+                        <label class="form-label" for="aUsername">Username</label>
+                        <input type="text" id="aUsername" name="username" required placeholder="robert_admin" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="aDept">Department</label>
+                        <input type="text" id="aDept" name="department" value="Administration" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row mb-6">
+                    <div class="form-group" id="aPassGroup">
+                        <label class="form-label" for="aPassword">Password</label>
+                        <input type="password" id="aPassword" name="password" placeholder="Leave empty for admin123" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" onclick="closeAdminModal()" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Administrator</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript interacting with UserManagementServlet -->
+    <script>
+        let currentTab = 'students';
+        let currentData = [];
+
+        async function switchTab(tab) {
+            currentTab = tab;
+            ['tabStudents', 'tabFaculty', 'tabAdmins', 'tabAll'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200';
+            });
+
+            if (tab === 'students') {
+                document.getElementById('tabStudents').className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-blue-600 text-white';
+            } else if (tab === 'faculty') {
+                document.getElementById('tabFaculty').className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-blue-600 text-white';
+            } else if (tab === 'admins') {
+                document.getElementById('tabAdmins').className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-blue-600 text-white';
+            } else {
+                document.getElementById('tabAll').className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-blue-600 text-white';
+            }
+
+            await loadData();
+        }
+
+        async function loadData() {
+            try {
+                const res = await fetch(`../users-manage?type=${currentTab}`);
+                currentData = await res.json();
+                renderTable(currentData);
+            } catch (err) {
+                showAlert('Failed to load user directory', true);
+            }
+        }
+
+        function renderTable(data) {
+            const thead = document.getElementById('usersTableHead');
+            const tbody = document.getElementById('usersTableBody');
+
+            if (currentTab === 'students') {
+                thead.innerHTML = `
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Semester</th>
+                        <th>Phone</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                `;
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="text-center py-6 text-slate-400">No students found.</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = data.map(s => `
+                    <tr>
+                        <td><span class="badge badge-primary">${s.rollNumber}</span></td>
+                        <td class="font-semibold text-slate-800">${s.name}</td>
+                        <td>${s.email}</td>
+                        <td>${s.department}</td>
+                        <td>${s.semester} (${s.section || 'A'})</td>
+                        <td>${s.phone || '-'}</td>
+                        <td class="text-right whitespace-nowrap">
+                            <button onclick="editStudent(${s.id})" class="px-2.5 py-1 text-xs font-semibold text-blue-600 hover:bg-blue-50 rounded">Edit</button>
+                            <button onclick="deleteStudent(${s.id}, '${s.name}')" class="px-2.5 py-1 text-xs font-semibold text-red-600 hover:bg-red-50 rounded">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+
+            } else if (currentTab === 'faculty') {
+                thead.innerHTML = `
+                    <tr>
+                        <th>Emp ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Designation</th>
+                        <th>Phone</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                `;
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="text-center py-6 text-slate-400">No faculty found.</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = data.map(f => `
+                    <tr>
+                        <td><span class="badge badge-info">${f.employeeId}</span></td>
+                        <td class="font-semibold text-slate-800">${f.name}</td>
+                        <td>${f.email}</td>
+                        <td>${f.department}</td>
+                        <td>${f.designation}</td>
+                        <td>${f.phone || '-'}</td>
+                        <td class="text-right whitespace-nowrap">
+                            <button onclick="editFaculty(${f.id})" class="px-2.5 py-1 text-xs font-semibold text-blue-600 hover:bg-blue-50 rounded">Edit</button>
+                            <button onclick="deleteFaculty(${f.id}, '${f.name}')" class="px-2.5 py-1 text-xs font-semibold text-red-600 hover:bg-red-50 rounded">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+
+            } else if (currentTab === 'admins') {
+                thead.innerHTML = `
+                    <tr>
+                        <th>ID</th>
+                        <th>Administrator Name</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Department</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                `;
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="text-center py-6 text-slate-400">No administrators found.</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = data.map(a => `
+                    <tr>
+                        <td>#${a.id}</td>
+                        <td class="font-semibold text-slate-800">${a.name}</td>
+                        <td>${a.email}</td>
+                        <td><span class="badge badge-danger">${a.username}</span></td>
+                        <td>${a.department || 'Administration'}</td>
+                        <td class="text-right whitespace-nowrap">
+                            <button onclick="editAdmin(${a.id})" class="px-2.5 py-1 text-xs font-semibold text-blue-600 hover:bg-blue-50 rounded">Edit</button>
+                            <button onclick="deleteAdmin(${a.id}, '${a.name}')" class="px-2.5 py-1 text-xs font-semibold text-red-600 hover:bg-red-50 rounded">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+
+            } else {
+                thead.innerHTML = `
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                `;
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="text-center py-6 text-slate-400">No users found.</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = data.map(u => `
+                    <tr>
+                        <td>#${u.id}</td>
+                        <td class="font-semibold text-slate-800">${u.name}</td>
+                        <td>${u.email}</td>
+                        <td>${u.username}</td>
+                        <td>
+                            <span class="badge ${u.role === 'ADMIN' ? 'badge-danger' : u.role === 'FACULTY' ? 'badge-warning' : 'badge-success'}">
+                                ${u.role}
+                            </span>
+                        </td>
+                        <td>${u.department || '-'}</td>
+                        <td class="text-right whitespace-nowrap">
+                            <button onclick="deleteGenericUser(${u.id}, '${u.username}')" class="px-2.5 py-1 text-xs font-semibold text-red-600 hover:bg-red-50 rounded">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        function filterUsers() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = currentData.filter(item => {
+                return (item.name && item.name.toLowerCase().includes(q)) ||
+                       (item.email && item.email.toLowerCase().includes(q)) ||
+                       (item.rollNumber && item.rollNumber.toLowerCase().includes(q)) ||
+                       (item.employeeId && item.employeeId.toLowerCase().includes(q)) ||
+                       (item.department && item.department.toLowerCase().includes(q));
+            });
+            renderTable(filtered);
+        }
+
+        function openAddStudentModal() {
+            document.getElementById('studentForm').reset();
+            document.getElementById('studentId').value = '';
+            document.getElementById('studentAction').value = 'add_student';
+            document.getElementById('sPassGroup').style.display = 'block';
+            document.getElementById('sUsername').readOnly = false;
+            document.getElementById('studentModalTitle').textContent = 'Add New Student';
+            document.getElementById('studentModal').classList.add('active');
+        }
+
+        function closeStudentModal() {
+            document.getElementById('studentModal').classList.remove('active');
+        }
+
+        function editStudent(id) {
+            const s = currentData.find(x => x.id === id);
+            if (!s) return;
+            document.getElementById('studentId').value = s.id;
+            document.getElementById('studentAction').value = 'update_student';
+            document.getElementById('sName').value = s.name;
+            document.getElementById('sEmail').value = s.email;
+            document.getElementById('sUsername').value = s.username || '';
+            document.getElementById('sUsername').readOnly = true;
+            document.getElementById('sRoll').value = s.rollNumber;
+            document.getElementById('sDept').value = s.department;
+            document.getElementById('sSemester').value = s.semester;
+            document.getElementById('sSection').value = s.section || 'Section A';
+            document.getElementById('sPhone').value = s.phone || '';
+            document.getElementById('sPassGroup').style.display = 'none';
+
+            document.getElementById('studentModalTitle').textContent = 'Edit Student Details';
+            document.getElementById('studentModal').classList.add('active');
+        }
+
+        async function saveStudent(e) {
+            e.preventDefault();
+            const formData = new FormData(document.getElementById('studentForm'));
+            const params = new URLSearchParams(formData);
+
+            try {
+                const res = await fetch('../users-manage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString()
+                });
+                const result = await res.json();
+                if (result.success) {
+                    showAlert(result.message, false);
+                    closeStudentModal();
+                    loadData();
+                } else {
+                    showAlert(result.message, true);
+                }
+            } catch (err) {
+                showAlert('Failed to save student', true);
+            }
+        }
+
+        async function deleteStudent(id, name) {
+            if (!confirm(`Are you sure you want to delete student: ${name}?`)) return;
+            try {
+                const res = await fetch('../users-manage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `action=delete_student&id=${id}`
+                });
+                const result = await res.json();
+                if (result.success) {
+                    showAlert(result.message, false);
+                    loadData();
+                } else {
+                    showAlert(result.message, true);
+                }
+            } catch (err) {
+                showAlert('Failed to delete student', true);
+            }
+        }
+
+        function openAddFacultyModal() {
+            document.getElementById('facultyForm').reset();
+            document.getElementById('facultyId').value = '';
+            document.getElementById('facultyAction').value = 'add_faculty';
+            document.getElementById('fPassGroup').style.display = 'block';
+            document.getElementById('fUsername').readOnly = false;
+            document.getElementById('facultyModalTitle').textContent = 'Add New Faculty';
+            document.getElementById('facultyModal').classList.add('active');
+        }
+
+        function closeFacultyModal() {
+            document.getElementById('facultyModal').classList.remove('active');
+        }
+
+        function editFaculty(id) {
+            const f = currentData.find(x => x.id === id);
+            if (!f) return;
+            document.getElementById('facultyId').value = f.id;
+            document.getElementById('facultyAction').value = 'update_faculty';
+            document.getElementById('fName').value = f.name;
+            document.getElementById('fEmail').value = f.email;
+            document.getElementById('fUsername').value = f.username || '';
+            document.getElementById('fUsername').readOnly = true;
+            document.getElementById('fEmpId').value = f.employeeId;
+            document.getElementById('fDept').value = f.department;
+            document.getElementById('fDesignation').value = f.designation;
+            document.getElementById('fPhone').value = f.phone || '';
+            document.getElementById('fPassGroup').style.display = 'none';
+
+            document.getElementById('facultyModalTitle').textContent = 'Edit Faculty Details';
+            document.getElementById('facultyModal').classList.add('active');
+        }
+
+        async function saveFaculty(e) {
+            e.preventDefault();
+            const formData = new FormData(document.getElementById('facultyForm'));
+            const params = new URLSearchParams(formData);
+
+            try {
+                const res = await fetch('../users-manage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString()
+                });
+                const result = await res.json();
+                if (result.success) {
+                    showAlert(result.message, false);
+                    closeFacultyModal();
+                    loadData();
+                } else {
+                    showAlert(result.message, true);
+                }
+            } catch (err) {
+                showAlert('Failed to save faculty', true);
+            }
+        }
+
+        async function deleteFaculty(id, name) {
+            if (!confirm(`Are you sure you want to delete faculty member: ${name}?`)) return;
+            try {
+                const res = await fetch('../users-manage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `action=delete_faculty&id=${id}`
+                });
+                const result = await res.json();
+                if (result.success) {
+                    showAlert(result.message, false);
+                    loadData();
+                } else {
+                    showAlert(result.message, true);
+                }
+            } catch (err) {
+                showAlert('Failed to delete faculty', true);
+            }
+        }
+
+        function openAddAdminModal() {
+            document.getElementById('adminForm').reset();
+            document.getElementById('adminId').value = '';
+            document.getElementById('adminAction').value = 'add_admin';
+            document.getElementById('aPassGroup').style.display = 'block';
+            document.getElementById('aUsername').readOnly = false;
+            document.getElementById('adminModalTitle').textContent = 'Add New Administrator';
+            document.getElementById('adminModal').classList.add('active');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('active');
+        }
+
+        function editAdmin(id) {
+            const a = currentData.find(x => x.id === id);
+            if (!a) return;
+            document.getElementById('adminId').value = a.id;
+            document.getElementById('adminAction').value = 'update_admin';
+            document.getElementById('aName').value = a.name;
+            document.getElementById('aEmail').value = a.email;
+            document.getElementById('aUsername').value = a.username || '';
+            document.getElementById('aUsername').readOnly = true;
+            document.getElementById('aDept').value = a.department || 'Administration';
+            document.getElementById('aPassGroup').style.display = 'none';
+
+            document.getElementById('adminModalTitle').textContent = 'Edit Administrator Details';
+            document.getElementById('adminModal').classList.add('active');
+        }
+
+        async function saveAdmin(e) {
+            e.preventDefault();
+            const formData = new FormData(document.getElementById('adminForm'));
+            const params = new URLSearchParams(formData);
+
+            try {
+                const res = await fetch('../users-manage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString()
+                });
+                const result = await res.json();
+                if (result.success) {
+                    showAlert(result.message, false);
+                    closeAdminModal();
+                    loadData();
+                } else {
+                    showAlert(result.message, true);
+                }
+            } catch (err) {
+                showAlert('Failed to save administrator', true);
+            }
+        }
+
+        async function deleteAdmin(id, name) {
+            if (!confirm(`Are you sure you want to delete administrator: ${name}?`)) return;
+            try {
+                const res = await fetch('../users-manage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `action=delete_admin&id=${id}`
+                });
+                const result = await res.json();
+                if (result.success) {
+                    showAlert(result.message, false);
+                    loadData();
+                } else {
+                    showAlert(result.message, true);
+                }
+            } catch (err) {
+                showAlert('Failed to delete administrator', true);
+            }
+        }
+
+        async function deleteGenericUser(id, username) {
+            if (!confirm(`Are you sure you want to delete user account: ${username}?`)) return;
+            try {
+                const res = await fetch('../users-manage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `action=delete_user&id=${id}`
+                });
+                const result = await res.json();
+                if (result.success) {
+                    showAlert(result.message, false);
+                    loadData();
+                } else {
+                    showAlert(result.message, true);
+                }
+            } catch (err) {
+                showAlert('Failed to delete user', true);
+            }
+        }
+
+        function showAlert(msg, isError) {
+            const alert = document.getElementById('alertMsg');
+            alert.className = `mb-6 p-4 rounded-xl text-sm font-medium ${isError ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'} block`;
+            alert.textContent = msg;
+            setTimeout(() => { alert.className = 'hidden'; }, 4000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => loadData());
+    </script>
+</body>
+</html>

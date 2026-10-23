@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratory Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Top Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-lg shadow-md">
+                    LMS
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900 leading-tight">Laboratory Management System</h1>
+                    <p class="text-xs text-slate-500">College Academic Micro-Project (Java MVC + JDBC)</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="login.html" class="px-4 py-2 text-sm font-semibold text-blue-600 hover:text-blue-700">Sign In</a>
+                <a href="register.html" class="px-5 py-2 text-sm font-semibold bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow">Register</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="max-w-7xl mx-auto px-6 py-16 lg:py-24 text-center">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 uppercase tracking-wider">
+            Academic Micro-Project 2026
+        </span>
+        <h2 class="text-4xl lg:text-6xl font-extrabold text-slate-900 mt-6 tracking-tight">
+            Centralized College <br><span class="text-blue-600">Laboratory Management System</span>
+        </h2>
+        <p class="mt-6 text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            A comprehensive, role-based platform designed with clean Java MVC architecture to streamline lab equipment tracking, student attendance, evaluations, deadlines, and notifications.
+        </p>
+        <div class="mt-8 flex justify-center gap-4">
+            <a href="login.html" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl shadow-lg shadow-blue-500/20 transition">
+                Enter Portal &rarr;
+            </a>
+            <a href="register.html" class="px-6 py-3 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium rounded-xl transition">
+                Student Registration
+            </a>
+        </div>
+    </section>
+
+    <!-- 3 Roles Section -->
+    <section class="max-w-7xl mx-auto px-6 py-12">
+        <h3 class="text-2xl font-bold text-center text-slate-900 mb-10">Three Dedicated Actor Portals</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Admin Card -->
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center font-bold text-xl mb-6">
+                    A
+                </div>
+                <h4 class="text-xl font-bold text-slate-800 mb-2">Administrator</h4>
+                <p class="text-slate-500 text-sm mb-4">Complete management of labs, user directory, student/faculty records, and audit reports.</p>
+                <ul class="text-xs text-slate-600 space-y-2 mb-6">
+                    <li>✓ Lab equipment & capacity management</li>
+                    <li>✓ User account provisioning & controls</li>
+                    <li>✓ System audit & roster reports</li>
+                </ul>
+                <a href="login.html" class="text-sm font-semibold text-blue-600 hover:text-blue-700">Admin Login &rarr;</a>
+            </div>
+
+            <!-- Faculty Card -->
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-indigo-100 text-indigo-700 rounded-xl flex items-center justify-center font-bold text-xl mb-6">
+                    F
+                </div>
+                <h4 class="text-xl font-bold text-slate-800 mb-2">Faculty Member</h4>
+                <p class="text-slate-500 text-sm mb-4">Post lab marks, announce assignments, schedule practical exams, and review student grades.</p>
+                <ul class="text-xs text-slate-600 space-y-2 mb-6">
+                    <li>✓ Post & update lab practical marks</li>
+                    <li>✓ Publish department notices & deadlines</li>
+                    <li>✓ Schedule lab examination venues & times</li>
+                </ul>
+                <a href="login.html" class="text-sm font-semibold text-indigo-600 hover:text-indigo-700">Faculty Login &rarr;</a>
+            </div>
+
+            <!-- Student Card -->
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center font-bold text-xl mb-6">
+                    S
+                </div>
+                <h4 class="text-xl font-bold text-slate-800 mb-2">Student</h4>
+                <p class="text-slate-500 text-sm mb-4">Automatic daily login attendance, real-time lab scores, task deadlines, and exam dates.</p>
+                <ul class="text-xs text-slate-600 space-y-2 mb-6">
+                    <li>✓ Automated login-based daily attendance</li>
+                    <li>✓ View lab evaluation marks & feedback</li>
+                    <li>✓ Track upcoming assignment deadlines</li>
+                </ul>
+                <a href="login.html" class="text-sm font-semibold text-emerald-600 hover:text-emerald-700">Student Login &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-8 text-center text-sm text-slate-500">
+        <p>&copy; 2026 Laboratory Management System &bull; Java MVC &bull; Servlets &bull; JDBC &bull; MySQL</p>
+    </footer>
+
+</body>
+</html>

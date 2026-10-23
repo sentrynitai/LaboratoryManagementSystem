@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Marks | LMS Faculty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/forms.css">
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="dashboard-layout">
+        <!-- Faculty Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo bg-indigo-600">F</div>
+                <div>
+                    <h2 class="text-white font-bold text-base leading-tight">Faculty Portal</h2>
+                    <p class="text-xs text-slate-400">Lab Evaluations & Tasks</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="marks.html" class="nav-item active">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Post Marks
+                </a>
+                <a href="update-marks.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    Update Marks
+                </a>
+                <a href="notices.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    Notices
+                </a>
+                <a href="tasks.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    Tasks
+                </a>
+                <a href="lab-exams.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    Lab Examination
+                </a>
+                <a href="reports.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Reports
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../logout" class="nav-item text-red-400 hover:text-red-300 hover:bg-red-500/10">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Sign Out
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <h1 class="text-xl font-bold text-slate-800">Post Laboratory Marks</h1>
+            </header>
+
+            <div class="content-body">
+                <!-- Notifications -->
+                <div id="alertMsg" class="hidden mb-6 p-4 rounded-xl text-sm font-medium"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Post Marks Form -->
+                    <div class="card lg:col-span-1">
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Evaluation Form</h3>
+                        <p class="text-xs text-slate-500 mb-6">Enter student roll number and practical marks</p>
+
+                        <form id="postMarksForm" onsubmit="submitMarks(event)">
+                            <input type="hidden" name="action" value="add">
+
+                            <div class="form-group">
+                                <label class="form-label" for="rollNumber">Student Roll Number *</label>
+                                <input type="text" id="rollNumber" name="rollNumber" required placeholder="e.g. CS2026-001" class="form-control" list="studentsDatalist">
+                                <datalist id="studentsDatalist"></datalist>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="subject">Lab Course / Subject *</label>
+                                <input type="text" id="subject" name="subject" required placeholder="e.g. Data Structures Lab" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="assessment">Assessment Description *</label>
+                                <input type="text" id="assessment" name="assessment" required placeholder="e.g. Lab Experiment 3 - Binary Trees" class="form-control">
+                            </div>
+
+                            <div class="form-row mb-4">
+                                <div class="form-group">
+                                    <label class="form-label" for="marks">Marks Scored *</label>
+                                    <input type="number" step="0.5" id="marks" name="marks" required placeholder="28.5" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="maxMarks">Maximum Marks *</label>
+                                    <input type="number" step="0.5" id="maxMarks" name="maxMarks" value="30" required class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="mt-6">
+                                <button type="submit" class="btn btn-primary w-full py-2.5">
+                                    Save Marks Evaluation
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Marks History Table -->
+                    <div class="card lg:col-span-2">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-slate-800">Recent Laboratory Evaluations</h3>
+                            <button onclick="loadMarks()" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700">Refresh &circlearrowright;</button>
+                        </div>
+
+                        <div class="data-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Roll Number</th>
+                                        <th>Student</th>
+                                        <th>Subject</th>
+                                        <th>Assessment</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="marksTableBody">
+                                    <tr>
+                                        <td colspan="5" class="text-center py-6 text-slate-400">Loading marks records...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript interacting with MarksServlet -->
+    <script>
+        async function initPage() {
+            loadMarks();
+            loadStudentsDatalist();
+        }
+
+        async function loadStudentsDatalist() {
+            try {
+                const res = await fetch('../users-manage?type=students');
+                const students = await res.json();
+                const dl = document.getElementById('studentsDatalist');
+                dl.innerHTML = students.map(s => `<option value="${s.rollNumber}">${s.name} (${s.department})</option>`).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function loadMarks() {
+            try {
+                const res = await fetch('../marks');
+                const marksList = await res.json();
+                const tbody = document.getElementById('marksTableBody');
+
+                if (!marksList || marksList.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-6 text-slate-400">No marks evaluations recorded yet.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = marksList.map(m => `
+                    <tr>
+                        <td><span class="badge badge-primary">${m.studentRollNumber}</span></td>
+                        <td class="font-semibold text-slate-800">${m.studentName || '-'}</td>
+                        <td>${m.subject}</td>
+                        <td class="text-xs text-slate-600">${m.assessment}</td>
+                        <td>
+                            <strong class="text-blue-600">${m.marks}</strong> / ${m.maxMarks}
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function submitMarks(e) {
+            e.preventDefault();
+            const formData = new FormData(document.getElementById('postMarksForm'));
+            const params = new URLSearchParams(formData);
+
+            try {
+                const res = await fetch('../marks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString()
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    showAlert(result.message, false);
+                    document.getElementById('postMarksForm').reset();
+                    document.getElementById('maxMarks').value = '30';
+                    loadMarks();
+                } else {
+                    showAlert(result.message, true);
+                }
+            } catch (err) {
+                showAlert('Failed to post marks.', true);
+            }
+        }
+
+        function showAlert(msg, isError) {
+            const alert = document.getElementById('alertMsg');
+            alert.className = `mb-6 p-4 rounded-xl text-sm font-medium ${isError ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'} block`;
+            alert.textContent = msg;
+            setTimeout(() => { alert.className = 'hidden'; }, 4000);
+        }
+
+        window.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>

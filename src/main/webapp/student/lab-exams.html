@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Examination Dates | LMS Student</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="dashboard-layout">
+        <!-- Student Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo bg-emerald-600">S</div>
+                <div>
+                    <h2 class="text-white font-bold text-base leading-tight">Student Portal</h2>
+                    <p class="text-xs text-slate-400">Academic Lab Work</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="marks.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Marks
+                </a>
+                <a href="notices.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    Notices
+                </a>
+                <a href="tasks.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    Tasks
+                </a>
+                <a href="lab-exams.html" class="nav-item active">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    Lab Exams
+                </a>
+                <a href="attendance.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    Attendance
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../logout" class="nav-item text-red-400 hover:text-red-300 hover:bg-red-500/10">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Sign Out
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <h1 class="text-xl font-bold text-slate-800">Laboratory Examination Schedule</h1>
+            </header>
+
+            <div class="content-body">
+                <div class="card mb-6">
+                    <h3 class="text-lg font-bold text-slate-800">Upcoming Practical Evaluations & Viva Schedules</h3>
+                    <p class="text-xs text-slate-500">Please arrive at the allocated laboratory venue 15 minutes before scheduled start time</p>
+                </div>
+
+                <div class="card">
+                    <div class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Practical Examination</th>
+                                    <th>Laboratory Venue</th>
+                                    <th>Room Number</th>
+                                    <th>Exam Date</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Faculty In-Charge</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentExamsBody">
+                                <tr>
+                                    <td colspan="7" class="text-center py-6 text-slate-400">Loading practical exam schedule...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript interacting with LabExamServlet -->
+    <script>
+        async function loadExams() {
+            try {
+                const res = await fetch('../lab-exams');
+                const exams = await res.json();
+                const tbody = document.getElementById('studentExamsBody');
+
+                if (!exams || exams.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="text-center py-6 text-slate-400">No laboratory exams scheduled.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = exams.map(e => `
+                    <tr>
+                        <td class="font-bold text-slate-900">${e.examName}</td>
+                        <td class="font-semibold text-slate-700">${e.labName || '-'}</td>
+                        <td><span class="badge badge-primary">${e.roomNumber || '-'}</span></td>
+                        <td><span class="badge badge-info">${e.examDate}</span></td>
+                        <td>${e.startTime}</td>
+                        <td>${e.endTime}</td>
+                        <td>${e.facultyName || 'Faculty'}</td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        window.addEventListener('DOMContentLoaded', loadExams);
+    </script>
+</body>
+</html>

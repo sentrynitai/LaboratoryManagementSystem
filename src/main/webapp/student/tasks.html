@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Tasks & Submissions | LMS Student</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="dashboard-layout">
+        <!-- Student Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo bg-emerald-600">S</div>
+                <div>
+                    <h2 class="text-white font-bold text-base leading-tight">Student Portal</h2>
+                    <p class="text-xs text-slate-400">Academic Lab Work</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="marks.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Marks
+                </a>
+                <a href="notices.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    Notices
+                </a>
+                <a href="tasks.html" class="nav-item active">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    Tasks
+                </a>
+                <a href="lab-exams.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    Lab Exams
+                </a>
+                <a href="attendance.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    Attendance
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../logout" class="nav-item text-red-400 hover:text-red-300 hover:bg-red-500/10">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Sign Out
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <h1 class="text-xl font-bold text-slate-800">Laboratory Tasks & Submission Deadlines</h1>
+            </header>
+
+            <div class="content-body">
+                <div class="card mb-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800">Pending Lab Assignments</h3>
+                            <p class="text-xs text-slate-500">Submit assignments to your course instructor on or before the due date</p>
+                        </div>
+                        <button onclick="loadTasks()" class="btn btn-secondary text-xs">Refresh</button>
+                    </div>
+                </div>
+
+                <div id="tasksContainer" class="space-y-4">
+                    <p class="text-center py-6 text-slate-400">Loading assignments...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript interacting with TaskServlet -->
+    <script>
+        async function loadTasks() {
+            try {
+                const res = await fetch('../tasks');
+                const tasks = await res.json();
+                const container = document.getElementById('tasksContainer');
+
+                if (!tasks || tasks.length === 0) {
+                    container.innerHTML = '<div class="card text-center py-10 text-slate-400">No lab tasks assigned currently.</div>';
+                    return;
+                }
+
+                container.innerHTML = tasks.map(t => {
+                    const today = new Date().toISOString().split('T')[0];
+                    const isOverdue = t.submissionDate < today;
+                    return `
+                        <div class="card border-l-4 ${isOverdue ? 'border-l-red-500' : 'border-l-amber-500'} hover:shadow-md transition">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                                <div>
+                                    <h4 class="text-lg font-bold text-slate-900">${t.title}</h4>
+                                    <span class="text-xs text-slate-500">Instructor: ${t.facultyName || 'Faculty'}</span>
+                                </div>
+                                <div>
+                                    <span class="badge ${isOverdue ? 'badge-danger' : 'badge-warning'} text-xs">
+                                        📅 Deadline: ${t.submissionDate} ${isOverdue ? '(Past Due)' : ''}
+                                    </span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-slate-700 whitespace-pre-line leading-relaxed">${t.description || 'No specific description provided.'}</p>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        window.addEventListener('DOMContentLoaded', loadTasks);
+    </script>
+</body>
+</html>

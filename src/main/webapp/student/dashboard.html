@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="dashboard-layout">
+        <!-- Student Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo bg-emerald-600">S</div>
+                <div>
+                    <h2 class="text-white font-bold text-base leading-tight">Student Portal</h2>
+                    <p class="text-xs text-slate-400">Academic Lab Work</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="marks.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Marks
+                </a>
+                <a href="notices.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    Notices
+                </a>
+                <a href="tasks.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    Tasks
+                </a>
+                <a href="lab-exams.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    Lab Exams
+                </a>
+                <a href="attendance.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    Attendance
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../logout" class="nav-item text-red-400 hover:text-red-300 hover:bg-red-500/10">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Sign Out
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <h1 class="text-xl font-bold text-slate-800">Student Dashboard</h1>
+                <div class="flex items-center gap-3">
+                    <span id="topStudentName" class="text-sm font-medium text-slate-600">Loading student...</span>
+                    <a href="../logout" class="px-3 py-1.5 text-xs font-semibold bg-red-50 text-red-600 border border-red-200 rounded-lg hover:bg-red-100">Logout</a>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <!-- Student Profile Card with Auto Attendance Status -->
+                <div class="bg-gradient-to-r from-emerald-700 to-teal-800 rounded-2xl p-6 text-white mb-8 shadow-sm">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div>
+                            <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold uppercase tracking-wider">Student Profile</span>
+                            <h2 id="studentName" class="text-3xl font-bold mt-2">-</h2>
+                            <p class="text-emerald-100 text-sm mt-1">
+                                Roll No: <strong id="studentRoll" class="text-white">-</strong> &bull; 
+                                Department: <strong id="studentDept" class="text-white">-</strong> &bull; 
+                                <span id="studentSem">-</span>
+                            </p>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 text-center min-w-[180px]">
+                            <span class="text-xs uppercase text-emerald-200 block font-semibold">Today's Attendance</span>
+                            <div class="mt-1 flex items-center justify-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span id="attendanceStatus" class="text-lg font-bold text-white">PRESENT</span>
+                            </div>
+                            <span class="text-[10px] text-emerald-100 mt-1 block">Auto-marked upon login</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2-Columns: Recent Marks & Upcoming Tasks -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <!-- Recent Marks -->
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-slate-800">Recent Laboratory Marks</h3>
+                            <a href="marks.html" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700">View All &rarr;</a>
+                        </div>
+                        <div class="data-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Subject</th>
+                                        <th>Assessment</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentMarksBody">
+                                    <tr>
+                                        <td colspan="3" class="text-center py-6 text-slate-400">Loading marks...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Tasks -->
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-slate-800">Pending Assignments & Tasks</h3>
+                            <a href="tasks.html" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700">View All &rarr;</a>
+                        </div>
+                        <div id="tasksList" class="space-y-3">
+                            <p class="text-slate-400 text-sm py-4 text-center">Loading tasks...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2-Columns: Upcoming Lab Exams & Latest Notices -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Upcoming Lab Exams -->
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-slate-800">Upcoming Practical Examinations</h3>
+                            <a href="lab-exams.html" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700">View All &rarr;</a>
+                        </div>
+                        <div id="examsList" class="space-y-3">
+                            <p class="text-slate-400 text-sm py-4 text-center">Loading exams...</p>
+                        </div>
+                    </div>
+
+                    <!-- Latest Notices -->
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-slate-800">Department Notices & Updates</h3>
+                            <a href="notices.html" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700">View All &rarr;</a>
+                        </div>
+                        <div id="noticesList" class="space-y-3">
+                            <p class="text-slate-400 text-sm py-4 text-center">Loading notices...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script interacting with StudentServlet -->
+    <script>
+        async function loadStudentDashboard() {
+            try {
+                const res = await fetch('../student-data');
+                const data = await res.json();
+
+                if (data.student) {
+                    document.getElementById('topStudentName').textContent = data.student.name;
+                    document.getElementById('studentName').textContent = data.student.name;
+                    document.getElementById('studentRoll').textContent = data.student.rollNumber;
+                    document.getElementById('studentDept').textContent = data.student.department;
+                    document.getElementById('studentSem').textContent = `${data.student.semester} (${data.student.section || 'A'})`;
+                } else if (data.user) {
+                    document.getElementById('topStudentName').textContent = data.user.name;
+                    document.getElementById('studentName').textContent = data.user.name;
+                }
+
+                document.getElementById('attendanceStatus').textContent = data.attendanceMarkedToday ? 'PRESENT' : 'NOT MARKED';
+
+                // Recent Marks
+                const mb = document.getElementById('recentMarksBody');
+                if (data.marks && data.marks.length > 0) {
+                    mb.innerHTML = data.marks.slice(0, 4).map(m => `
+                        <tr>
+                            <td class="font-semibold text-slate-800">${m.subject}</td>
+                            <td class="text-xs text-slate-600">${m.assessment}</td>
+                            <td><strong class="text-emerald-600">${m.marks}</strong> / ${m.maxMarks}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    mb.innerHTML = '<tr><td colspan="3" class="text-center py-4 text-slate-400">No marks recorded yet.</td></tr>';
+                }
+
+                // Tasks
+                const tl = document.getElementById('tasksList');
+                if (data.tasks && data.tasks.length > 0) {
+                    tl.innerHTML = data.tasks.slice(0, 3).map(t => `
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
+                            <div>
+                                <h4 class="font-semibold text-slate-800 text-sm">${t.title}</h4>
+                                <p class="text-xs text-slate-500 line-clamp-1">${t.description}</p>
+                            </div>
+                            <span class="badge badge-warning whitespace-nowrap">Due: ${t.submissionDate}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    tl.innerHTML = '<p class="text-slate-400 text-sm py-4 text-center">No upcoming tasks.</p>';
+                }
+
+                // Exams
+                const el = document.getElementById('examsList');
+                if (data.labExams && data.labExams.length > 0) {
+                    el.innerHTML = data.labExams.slice(0, 3).map(e => `
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
+                            <div>
+                                <h4 class="font-semibold text-slate-800 text-sm">${e.examName}</h4>
+                                <p class="text-xs text-slate-500">${e.labName} &bull; ${e.roomNumber}</p>
+                            </div>
+                            <span class="badge badge-info whitespace-nowrap">${e.examDate}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    el.innerHTML = '<p class="text-slate-400 text-sm py-4 text-center">No upcoming practical exams scheduled.</p>';
+                }
+
+                // Notices
+                const nl = document.getElementById('noticesList');
+                if (data.notices && data.notices.length > 0) {
+                    nl.innerHTML = data.notices.slice(0, 3).map(n => `
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                            <h4 class="font-semibold text-slate-800 text-sm mb-1">${n.title}</h4>
+                            <p class="text-xs text-slate-600 line-clamp-2">${n.description}</p>
+                        </div>
+                    `).join('');
+                } else {
+                    nl.innerHTML = '<p class="text-slate-400 text-sm py-4 text-center">No notices available.</p>';
+                }
+
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        window.addEventListener('DOMContentLoaded', loadStudentDashboard);
+    </script>
+</body>
+</html>

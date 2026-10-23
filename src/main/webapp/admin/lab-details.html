@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratory Details | LMS Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">A</div>
+                <div>
+                    <h2 class="text-white font-bold text-base leading-tight">Admin Portal</h2>
+                    <p class="text-xs text-slate-400">LMS Control Center</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="laboratories.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    Laboratories
+                </a>
+                <a href="users.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    Users
+                </a>
+                <a href="lab-details.html" class="nav-item active">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    Laboratory Details
+                </a>
+                <a href="reports.html" class="nav-item">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Reports
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../logout" class="nav-item text-red-400 hover:text-red-300 hover:bg-red-500/10">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    Sign Out
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <h1 class="text-xl font-bold text-slate-800">Laboratory Facility Details</h1>
+                <div class="flex items-center gap-3">
+                    <label class="text-xs font-semibold text-slate-500">Select Lab:</label>
+                    <select id="labSelect" onchange="displayLabDetails()" class="px-3 py-1.5 text-sm border border-slate-300 rounded-lg outline-none focus:border-blue-500 bg-white">
+                        <option value="">Loading labs...</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <div id="detailsCard" class="card mb-8">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-200 gap-4 mb-6">
+                        <div>
+                            <span id="detailBadge" class="badge badge-primary text-xs mb-2">LAB CODE</span>
+                            <h2 id="detailTitle" class="text-2xl font-bold text-slate-900">Select a laboratory above</h2>
+                            <p id="detailDept" class="text-sm text-slate-500 mt-1">Department information</p>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center min-w-[100px]">
+                                <span class="text-xs text-slate-500 uppercase block font-semibold">Capacity</span>
+                                <span id="detailCapacity" class="text-xl font-bold text-blue-600">-</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center min-w-[120px]">
+                                <span class="text-xs text-slate-500 uppercase block font-semibold">Room</span>
+                                <span id="detailRoom" class="text-xl font-bold text-slate-700">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-2">Equipment & Infrastructure Details</h4>
+                            <div id="detailEquipment" class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                                No equipment information available.
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-2">Facility Description & Objectives</h4>
+                            <div id="detailDescription" class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                                No description provided.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scheduled Practical Examinations in this Lab -->
+                <div class="card">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4">Scheduled Practical Examinations in Venue</h3>
+                    <div class="data-table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Exam Name</th>
+                                    <th>Faculty In-Charge</th>
+                                    <th>Date</th>
+                                    <th>Timings</th>
+                                </tr>
+                            </thead>
+                            <tbody id="labExamsBody">
+                                <tr>
+                                    <td colspan="4" class="text-center py-6 text-slate-400">Select a laboratory to inspect exam schedules.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script to load Lab Details -->
+    <script>
+        let laboratories = [];
+        let allExams = [];
+
+        async function initPage() {
+            try {
+                const [labsRes, examsRes] = await Promise.all([
+                    fetch('../laboratories'),
+                    fetch('../lab-exams')
+                ]);
+                laboratories = await labsRes.json();
+                allExams = await examsRes.json();
+
+                const select = document.getElementById('labSelect');
+                if (laboratories.length > 0) {
+                    select.innerHTML = laboratories.map(l => `<option value="${l.id}">${l.labName} (${l.labCode})</option>`).join('');
+                    displayLabDetails();
+                } else {
+                    select.innerHTML = '<option value="">No laboratories found</option>';
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function displayLabDetails() {
+            const id = parseInt(document.getElementById('labSelect').value);
+            const lab = laboratories.find(l => l.id === id);
+            if (!lab) return;
+
+            document.getElementById('detailBadge').textContent = lab.labCode;
+            document.getElementById('detailTitle').textContent = lab.labName;
+            document.getElementById('detailDept').textContent = 'Department of ' + lab.department;
+            document.getElementById('detailCapacity').textContent = lab.capacity + ' Seats';
+            document.getElementById('detailRoom').textContent = lab.roomNumber;
+            document.getElementById('detailEquipment').textContent = lab.equipmentDetails || 'No specific equipment listed.';
+            document.getElementById('detailDescription').textContent = lab.description || 'No description listed.';
+
+            // Filter exams in this lab
+            const matchedExams = allExams.filter(e => e.laboratoryId === id);
+            const tbody = document.getElementById('labExamsBody');
+
+            if (matchedExams.length > 0) {
+                tbody.innerHTML = matchedExams.map(e => `
+                    <tr>
+                        <td class="font-semibold text-slate-800">${e.examName}</td>
+                        <td>${e.facultyName || 'Faculty'}</td>
+                        <td><span class="badge badge-info">${e.examDate}</span></td>
+                        <td>${e.startTime} - ${e.endTime}</td>
+                    </tr>
+                `).join('');
+            } else {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-slate-400">No scheduled practical examinations for this laboratory.</td></tr>';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>

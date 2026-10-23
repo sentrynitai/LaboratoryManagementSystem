@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Register | Laboratory Management System</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/register.css">
+
+</head>
+
+
+<body class="min-h-screen bg-slate-100">
+
+    <div class="min-h-screen flex">
+
+        <!-- ================= LEFT SECTION ================= -->
+
+        <div class="hidden lg:flex lg:w-5/12
+                    bg-blue-700 text-white
+                    items-center justify-center p-12">
+
+            <div class="max-w-md">
+
+                <div class="w-16 h-16
+                            bg-white/10
+                            rounded-2xl
+                            flex items-center justify-center
+                            mb-8">
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.8"
+                        stroke="currentColor"
+                        class="w-9 h-9">
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
+
+                    </svg>
+
+                </div>
+
+
+                <h1 class="text-4xl font-bold mb-6">
+                    Create Your Account
+                </h1>
+
+
+                <p class="text-blue-100 text-lg leading-relaxed mb-8">
+
+                    Join the Laboratory Management System
+                    and access your academic laboratory
+                    information from one place.
+
+                </p>
+
+
+                <div class="space-y-5">
+
+                    <div class="flex items-center gap-4">
+
+                        <div class="feature-icon">
+                            ✓
+                        </div>
+
+                        <span>
+                            Access laboratory information
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex items-center gap-4">
+
+                        <div class="feature-icon">
+                            ✓
+                        </div>
+
+                        <span>
+                            View marks and notices
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex items-center gap-4">
+
+                        <div class="feature-icon">
+                            ✓
+                        </div>
+
+                        <span>
+                            Track laboratory examinations
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex items-center gap-4">
+
+                        <div class="feature-icon">
+                            ✓
+                        </div>
+
+                        <span>
+                            Manage your academic activities
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= RIGHT SECTION ================= -->
+
+        <div class="w-full lg:w-7/12
+                    flex items-center justify-center
+                    p-6 sm:p-10">
+
+            <div class="w-full max-w-lg register-card">
+
+
+                <!-- Mobile Header -->
+
+                <div class="lg:hidden text-center mb-7">
+
+                    <div class="mx-auto w-14 h-14
+                                bg-blue-600 text-white
+                                rounded-xl
+                                flex items-center justify-center mb-4">
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.8"
+                            stroke="currentColor"
+                            class="w-8 h-8">
+
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
+
+                        </svg>
+
+                    </div>
+
+                    <h1 class="text-2xl font-bold text-slate-800">
+
+                        Laboratory Management System
+
+                    </h1>
+
+                </div>
+
+
+                <!-- Registration Card -->
+
+                <div class="bg-white rounded-2xl
+                            shadow-xl
+                            border border-slate-200
+                            p-8 sm:p-10">
+
+
+                    <!-- Header -->
+
+                    <div class="mb-7">
+
+                        <h2 class="text-2xl font-bold
+                                   text-slate-800">
+
+                            Create Account
+
+                        </h2>
+
+                        <p class="text-slate-500 mt-2">
+
+                            Enter your information to register.
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- Alert Box for Error / Success Messages -->
+                    <div id="alertBox" class="hidden mb-6 p-4 rounded-xl text-sm font-medium"></div>
+
+                    <!-- Registration Form -->
+                    <form
+                        action="register"
+                        method="post"
+                        class="space-y-5">
+
+
+                        <!-- Full Name -->
+
+                        <div>
+
+                            <label
+                                for="name"
+                                class="block text-sm
+                                       font-semibold
+                                       text-slate-700 mb-2">
+
+                                Full Name
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                required
+                                class="input-field">
+
+                        </div>
+
+
+                        <!-- Email -->
+
+                        <div>
+
+                            <label
+                                for="email"
+                                class="block text-sm
+                                       font-semibold
+                                       text-slate-700 mb-2">
+
+                                Email Address
+
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required
+                                class="input-field">
+
+                        </div>
+
+
+                        <!-- Role -->
+
+                        <div>
+
+                            <label
+                                for="role"
+                                class="block text-sm
+                                       font-semibold
+                                       text-slate-700 mb-2">
+
+                                Register As
+
+                            </label>
+
+                            <select
+                                id="role"
+                                name="role"
+                                required
+                                class="input-field">
+
+                                <option value="">
+                                    Select your role
+                                </option>
+
+                                <option value="STUDENT">
+                                    Student
+                                </option>
+
+                                <option value="FACULTY">
+                                    Faculty
+                                </option>
+
+                                <option value="ADMIN">
+                                    Administrator
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Student / Faculty ID -->
+
+                        <div>
+
+                            <label
+                                for="userId"
+                                class="block text-sm
+                                       font-semibold
+                                       text-slate-700 mb-2">
+
+                                Student / Faculty ID
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="userId"
+                                name="userId"
+                                placeholder="Enter Roll Number or Employee ID"
+                                required
+                                class="input-field">
+
+                        </div>
+
+                        <!-- Department -->
+                        <div>
+                            <label for="department" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Department
+                            </label>
+                            <select id="department" name="department" required class="input-field">
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Information Technology">Information Technology</option>
+                                <option value="Electronics & Communication">Electronics & Communication</option>
+                                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            </select>
+                        </div>
+
+                        <!-- Semester (for students) -->
+                        <div id="studentFields" class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="semester" class="block text-sm font-semibold text-slate-700 mb-2">
+                                    Semester
+                                </label>
+                                <select id="semester" name="semester" class="input-field">
+                                    <option value="Semester 1">Semester 1</option>
+                                    <option value="Semester 2">Semester 2</option>
+                                    <option value="Semester 3">Semester 3</option>
+                                    <option value="Semester 4">Semester 4</option>
+                                    <option value="Semester 5" selected>Semester 5</option>
+                                    <option value="Semester 6">Semester 6</option>
+                                    <option value="Semester 7">Semester 7</option>
+                                    <option value="Semester 8">Semester 8</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="section" class="block text-sm font-semibold text-slate-700 mb-2">
+                                    Section
+                                </label>
+                                <input type="text" id="section" name="section" value="Section A" class="input-field">
+                            </div>
+                        </div>
+
+
+                        <!-- Password -->
+
+                        <div>
+
+                            <label
+                                for="password"
+                                class="block text-sm
+                                       font-semibold
+                                       text-slate-700 mb-2">
+
+                                Password
+
+                            </label>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                                required
+                                class="input-field">
+
+                        </div>
+
+
+                        <!-- Confirm Password -->
+
+                        <div>
+
+                            <label
+                                for="confirmPassword"
+                                class="block text-sm
+                                       font-semibold
+                                       text-slate-700 mb-2">
+
+                                Confirm Password
+
+                            </label>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Confirm your password"
+                                autocomplete="new-password"
+                                required
+                                class="input-field">
+
+                        </div>
+
+
+                        <!-- Terms -->
+
+                        <div class="flex items-start gap-3">
+
+                            <input
+                                type="checkbox"
+                                id="terms"
+                                name="terms"
+                                required
+                                class="w-4 h-4 mt-1
+                                       text-blue-600
+                                       border-slate-300
+                                       rounded">
+
+                            <label
+                                for="terms"
+                                class="text-sm text-slate-600">
+
+                                I agree to the terms and conditions
+                                of the Laboratory Management System.
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- Register Button -->
+
+                        <button
+                            type="submit"
+                            class="register-button">
+
+                            Create Account
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- Login Link -->
+
+                    <div class="text-center mt-7">
+
+                        <p class="text-sm text-slate-600">
+
+                            Already have an account?
+
+                            <a
+                                href="login.html"
+                                class="font-semibold
+                                       text-blue-600
+                                       hover:text-blue-700
+                                       hover:underline">
+
+                                Login here
+
+                            </a>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Footer -->
+
+                <p class="text-center text-xs
+                          text-slate-500 mt-6">
+
+                    © 2026 Laboratory Management System
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Toggle student specific fields based on role selection
+        document.getElementById('role').addEventListener('change', function() {
+            const studentFields = document.getElementById('studentFields');
+            const idLabel = document.querySelector('label[for="userId"]');
+            const userIdInput = document.getElementById('userId');
+            if (this.value === 'FACULTY') {
+                studentFields.style.display = 'none';
+                idLabel.textContent = 'Faculty Employee ID';
+                userIdInput.placeholder = 'Enter Employee ID';
+            } else if (this.value === 'ADMIN') {
+                studentFields.style.display = 'none';
+                idLabel.textContent = 'Admin Staff ID (Optional)';
+                userIdInput.placeholder = 'e.g. ADM-001';
+            } else {
+                studentFields.style.display = 'grid';
+                idLabel.textContent = 'Student Roll Number';
+                userIdInput.placeholder = 'Enter Roll Number';
+            }
+        });
+
+        // Display query param messages
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const alertBox = document.getElementById('alertBox');
+            if (params.has('error')) {
+                alertBox.className = 'mb-6 p-4 rounded-xl text-sm font-medium bg-red-50 text-red-700 border border-red-200 block';
+                alertBox.textContent = decodeURIComponent(params.get('error'));
+            }
+        });
+    </script>
+</body>
+
+</html>

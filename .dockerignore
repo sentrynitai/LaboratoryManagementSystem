@@ -1,0 +1,7 @@
+target/
+.git/
+.gitignore
+*.bat
+.idea/
+*.iml
+.vscode/
