@@ -1,8 +1,11 @@
 package com.lms.controller;
 
 import com.google.gson.Gson;
+import com.lms.dao.FacultyDAO;
 import com.lms.dao.NoticeDAO;
+import com.lms.model.Faculty;
 import com.lms.model.Notice;
+import com.lms.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,11 +20,13 @@ import java.util.Map;
 
 /**
  * Controller for publishing, listing, and removing Notices.
+ * Supports both Faculty and Admin notice publishing.
  */
-@WebServlet(name = "NoticeServlet", urlPatterns = {"/notices", "/faculty/notices-api"})
+@WebServlet(name = "NoticeServlet", urlPatterns = {"/notices", "/faculty/notices-api", "/admin/notices-api"})
 public class NoticeServlet extends HttpServlet {
 
     private final NoticeDAO noticeDAO = new NoticeDAO();
+    private final FacultyDAO facultyDAO = new FacultyDAO();
     private final Gson gson = new Gson();
 
     @Override
@@ -58,6 +63,26 @@ public class NoticeServlet extends HttpServlet {
         String action = request.getParameter("action");
         Map<String, Object> result = new HashMap<>();
         HttpSession session = request.getSession(false);
+        User user = (session != null) ? (User) session.getAttribute("user") : null;
+
+        PrintWriter out = response.getWriter();
+
+        if (user == null) {
+            result.put("success", false);
+            result.put("message", "Authentication required. Please log in.");
+            out.print(gson.toJson(result));
+            out.flush();
+            return;
+        }
+
+        String role = user.getRole();
+        if (!"ADMIN".equalsIgnoreCase(role) && !"FACULTY".equalsIgnoreCase(role)) {
+            result.put("success", false);
+            result.put("message", "Unauthorized. Only administrators and faculty may manage notices.");
+            out.print(gson.toJson(result));
+            out.flush();
+            return;
+        }
 
         try {
             if ("add".equalsIgnoreCase(action)) {
@@ -68,9 +93,17 @@ public class NoticeServlet extends HttpServlet {
                     result.put("success", false);
                     result.put("message", "Title and description are required.");
                 } else {
-                    int facultyId = 1;
-                    if (session != null && session.getAttribute("facultyId") != null) {
-                        facultyId = (Integer) session.getAttribute("facultyId");
+                    Integer facultyId = null;
+                    if ("FACULTY".equalsIgnoreCase(role)) {
+                        if (session.getAttribute("facultyId") != null) {
+                            facultyId = (Integer) session.getAttribute("facultyId");
+                        } else {
+                            Faculty f = facultyDAO.getFacultyByUserId(user.getId());
+                            if (f != null) {
+                                facultyId = f.getId();
+                                session.setAttribute("facultyId", facultyId);
+                            }
+                        }
                     }
 
                     Notice notice = new Notice();
@@ -84,10 +117,16 @@ public class NoticeServlet extends HttpServlet {
                 }
 
             } else if ("delete".equalsIgnoreCase(action)) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                boolean ok = noticeDAO.deleteNotice(id);
-                result.put("success", ok);
-                result.put("message", ok ? "Notice deleted successfully." : "Failed to delete notice.");
+                String idParam = request.getParameter("id");
+                if (idParam == null || idParam.trim().isEmpty()) {
+                    result.put("success", false);
+                    result.put("message", "Notice ID is required for deletion.");
+                } else {
+                    int id = Integer.parseInt(idParam.trim());
+                    boolean ok = noticeDAO.deleteNotice(id);
+                    result.put("success", ok);
+                    result.put("message", ok ? "Notice deleted successfully." : "Failed to delete notice.");
+                }
 
             } else {
                 result.put("success", false);
@@ -98,7 +137,6 @@ public class NoticeServlet extends HttpServlet {
             result.put("message", "Error: " + e.getMessage());
         }
 
-        PrintWriter out = response.getWriter();
         out.print(gson.toJson(result));
         out.flush();
     }

@@ -90,16 +90,16 @@ CREATE TABLE marks (
 
 -- --------------------------------------------------------
 -- Table: NOTICES
--- Stores announcements published by faculty
+-- Stores announcements published by faculty or administration
 -- --------------------------------------------------------
 CREATE TABLE notices (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    faculty_id INT NOT NULL,
+    faculty_id INT NULL,
     title VARCHAR(200) NOT NULL,
     description TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_notices_faculty FOREIGN KEY (faculty_id) 
-        REFERENCES faculty(id) ON DELETE CASCADE
+        REFERENCES faculty(id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 -- --------------------------------------------------------

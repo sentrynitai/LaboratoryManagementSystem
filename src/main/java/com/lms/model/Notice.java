@@ -8,7 +8,7 @@ import java.sql.Timestamp;
  */
 public class Notice {
     private int id;
-    private int facultyId;
+    private Integer facultyId;
     private String title;
     private String description;
     private Timestamp createdAt;
@@ -19,7 +19,7 @@ public class Notice {
     public Notice() {
     }
 
-    public Notice(int id, int facultyId, String title, String description, Timestamp createdAt) {
+    public Notice(int id, Integer facultyId, String title, String description, Timestamp createdAt) {
         this.id = id;
         this.facultyId = facultyId;
         this.title = title;
@@ -35,11 +35,11 @@ public class Notice {
         this.id = id;
     }
 
-    public int getFacultyId() {
+    public Integer getFacultyId() {
         return facultyId;
     }
 
-    public void setFacultyId(int facultyId) {
+    public void setFacultyId(Integer facultyId) {
         this.facultyId = facultyId;
     }
 

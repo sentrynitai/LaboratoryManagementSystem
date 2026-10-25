@@ -1,11 +1,13 @@
 package com.lms.controller;
 
 import com.google.gson.Gson;
+import com.lms.dao.FacultyDAO;
 import com.lms.dao.MarksDAO;
 import com.lms.dao.StudentDAO;
 import com.lms.model.Faculty;
 import com.lms.model.Marks;
 import com.lms.model.Student;
+import com.lms.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,6 +30,7 @@ public class MarksServlet extends HttpServlet {
 
     private final MarksDAO marksDAO = new MarksDAO();
     private final StudentDAO studentDAO = new StudentDAO();
+    private final FacultyDAO facultyDAO = new FacultyDAO();
     private final Gson gson = new Gson();
 
     @Override
@@ -44,13 +47,14 @@ public class MarksServlet extends HttpServlet {
         if ("my".equalsIgnoreCase(action)) {
             // Student viewing their own marks
             Integer studentId = (session != null) ? (Integer) session.getAttribute("studentId") : null;
-            if (studentId == null) {
+            if (studentId == null && session != null) {
                 // If not in session, try to find student by userId
-                Integer userId = (session != null) ? (Integer) session.getAttribute("userId") : null;
+                Integer userId = (Integer) session.getAttribute("userId");
                 if (userId != null) {
                     Student s = studentDAO.getStudentByUserId(userId);
                     if (s != null) {
                         studentId = s.getId();
+                        session.setAttribute("studentId", studentId);
                     }
                 }
             }
@@ -71,12 +75,30 @@ public class MarksServlet extends HttpServlet {
                     out.print("[]");
                 }
             } else {
-                int studentId = Integer.parseInt(request.getParameter("studentId"));
-                out.print(gson.toJson(marksDAO.getMarksByStudent(studentId)));
+                String studentIdParam = request.getParameter("studentId");
+                if (studentIdParam != null && !studentIdParam.trim().isEmpty()) {
+                    try {
+                        int studentId = Integer.parseInt(studentIdParam.trim());
+                        out.print(gson.toJson(marksDAO.getMarksByStudent(studentId)));
+                    } catch (NumberFormatException e) {
+                        out.print("[]");
+                    }
+                } else {
+                    out.print("[]");
+                }
             }
         } else if ("get".equalsIgnoreCase(action)) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            out.print(gson.toJson(marksDAO.getMarksById(id)));
+            String idParam = request.getParameter("id");
+            if (idParam != null && !idParam.trim().isEmpty()) {
+                try {
+                    int id = Integer.parseInt(idParam.trim());
+                    out.print(gson.toJson(marksDAO.getMarksById(id)));
+                } catch (NumberFormatException e) {
+                    out.print("{}");
+                }
+            } else {
+                out.print("{}");
+            }
         } else {
             // All marks
             out.print(gson.toJson(marksDAO.getAllMarks()));
@@ -95,20 +117,34 @@ public class MarksServlet extends HttpServlet {
         String action = request.getParameter("action");
         Map<String, Object> result = new HashMap<>();
         HttpSession session = request.getSession(false);
+        PrintWriter out = response.getWriter();
 
         try {
             if ("add".equalsIgnoreCase(action)) {
                 String rollNumber = request.getParameter("rollNumber");
                 String subject = request.getParameter("subject");
                 String assessment = request.getParameter("assessment");
-                double marksScored = Double.parseDouble(request.getParameter("marks"));
-                double maxMarks = Double.parseDouble(request.getParameter("maxMarks"));
+                String marksStr = request.getParameter("marks");
+                String maxMarksStr = request.getParameter("maxMarks");
+
+                if (rollNumber == null || rollNumber.trim().isEmpty() ||
+                    subject == null || subject.trim().isEmpty() ||
+                    assessment == null || assessment.trim().isEmpty() ||
+                    marksStr == null || maxMarksStr == null) {
+                    result.put("success", false);
+                    result.put("message", "All fields are required.");
+                    out.print(gson.toJson(result));
+                    out.flush();
+                    return;
+                }
+
+                double marksScored = Double.parseDouble(marksStr.trim());
+                double maxMarks = Double.parseDouble(maxMarksStr.trim());
 
                 // Validation
                 if (marksScored < 0 || marksScored > maxMarks || maxMarks <= 0) {
                     result.put("success", false);
                     result.put("message", "Invalid marks range. Marks scored must be between 0 and maximum marks.");
-                    PrintWriter out = response.getWriter();
                     out.print(gson.toJson(result));
                     out.flush();
                     return;
@@ -118,23 +154,37 @@ public class MarksServlet extends HttpServlet {
                 if (student == null) {
                     result.put("success", false);
                     result.put("message", "No student found with Roll Number: " + rollNumber);
-                    PrintWriter out = response.getWriter();
                     out.print(gson.toJson(result));
                     out.flush();
                     return;
                 }
 
-                // Determine faculty ID from session or fallback
-                int facultyId = 1;
-                if (session != null && session.getAttribute("facultyId") != null) {
-                    facultyId = (Integer) session.getAttribute("facultyId");
+                // Determine faculty ID from session or look up dynamically
+                Integer facultyId = (session != null) ? (Integer) session.getAttribute("facultyId") : null;
+                if (facultyId == null && session != null) {
+                    User user = (User) session.getAttribute("user");
+                    if (user != null) {
+                        Faculty f = facultyDAO.getFacultyByUserId(user.getId());
+                        if (f != null) {
+                            facultyId = f.getId();
+                            session.setAttribute("facultyId", facultyId);
+                        }
+                    }
+                }
+
+                if (facultyId == null) {
+                    result.put("success", false);
+                    result.put("message", "Faculty profile not found. Please log in with a faculty account.");
+                    out.print(gson.toJson(result));
+                    out.flush();
+                    return;
                 }
 
                 Marks m = new Marks();
                 m.setStudentId(student.getId());
                 m.setFacultyId(facultyId);
-                m.setSubject(subject);
-                m.setAssessment(assessment);
+                m.setSubject(subject.trim());
+                m.setAssessment(assessment.trim());
                 m.setMarks(marksScored);
                 m.setMaxMarks(maxMarks);
 
@@ -155,8 +205,8 @@ public class MarksServlet extends HttpServlet {
                 } else {
                     Marks m = new Marks();
                     m.setId(id);
-                    m.setSubject(subject);
-                    m.setAssessment(assessment);
+                    m.setSubject(subject.trim());
+                    m.setAssessment(assessment.trim());
                     m.setMarks(marksScored);
                     m.setMaxMarks(maxMarks);
 
@@ -180,7 +230,6 @@ public class MarksServlet extends HttpServlet {
             result.put("message", "Error: " + e.getMessage());
         }
 
-        PrintWriter out = response.getWriter();
         out.print(gson.toJson(result));
         out.flush();
     }

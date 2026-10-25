@@ -23,7 +23,11 @@ public class NoticeDAO {
         try {
             conn = DBConnection.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, notice.getFacultyId());
+            if (notice.getFacultyId() != null && notice.getFacultyId() > 0) {
+                stmt.setInt(1, notice.getFacultyId());
+            } else {
+                stmt.setNull(1, java.sql.Types.INTEGER);
+            }
             stmt.setString(2, notice.getTitle());
             stmt.setString(3, notice.getDescription());
             return stmt.executeUpdate() > 0;
@@ -55,10 +59,10 @@ public class NoticeDAO {
 
     public List<Notice> getAllNotices() {
         List<Notice> list = new ArrayList<>();
-        String sql = "SELECT n.*, u.name as faculty_name " +
+        String sql = "SELECT n.*, COALESCE(u.name, 'Administration') as faculty_name " +
                      "FROM notices n " +
-                     "JOIN faculty f ON n.faculty_id = f.id " +
-                     "JOIN users u ON f.user_id = u.id " +
+                     "LEFT JOIN faculty f ON n.faculty_id = f.id " +
+                     "LEFT JOIN users u ON f.user_id = u.id " +
                      "ORDER BY n.created_at DESC";
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -81,10 +85,10 @@ public class NoticeDAO {
 
     public List<Notice> getRecentNotices(int limit) {
         List<Notice> list = new ArrayList<>();
-        String sql = "SELECT n.*, u.name as faculty_name " +
+        String sql = "SELECT n.*, COALESCE(u.name, 'Administration') as faculty_name " +
                      "FROM notices n " +
-                     "JOIN faculty f ON n.faculty_id = f.id " +
-                     "JOIN users u ON f.user_id = u.id " +
+                     "LEFT JOIN faculty f ON n.faculty_id = f.id " +
+                     "LEFT JOIN users u ON f.user_id = u.id " +
                      "ORDER BY n.created_at DESC LIMIT ?";
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -109,7 +113,12 @@ public class NoticeDAO {
     private Notice mapRowToNotice(ResultSet rs) throws SQLException {
         Notice n = new Notice();
         n.setId(rs.getInt("id"));
-        n.setFacultyId(rs.getInt("faculty_id"));
+        int fId = rs.getInt("faculty_id");
+        if (rs.wasNull()) {
+            n.setFacultyId(null);
+        } else {
+            n.setFacultyId(fId);
+        }
         n.setTitle(rs.getString("title"));
         n.setDescription(rs.getString("description"));
         n.setCreatedAt(rs.getTimestamp("created_at"));
