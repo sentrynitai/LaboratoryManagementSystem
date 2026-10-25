@@ -231,6 +231,49 @@ public class UserDAO {
         }
     }
 
+    public boolean updatePassword(int userId, String plainNewPassword) {
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = DBConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, PasswordUtil.hashPassword(plainNewPassword));
+            stmt.setInt(2, userId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error in UserDAO.updatePassword: " + e.getMessage());
+            return false;
+        } finally {
+            DBConnection.close(conn, stmt);
+        }
+    }
+
+    public User getUserByEmailOrUsername(String identifier) {
+        String sql = "SELECT * FROM users WHERE email = ? OR username = ?";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, identifier);
+            stmt.setString(2, identifier);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return mapRowToUser(rs);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error in UserDAO.getUserByEmailOrUsername: " + e.getMessage());
+        } finally {
+            DBConnection.close(conn, stmt, rs);
+        }
+        return null;
+    }
+
     public int countUsersByRole(String role) {
         String sql = "SELECT COUNT(*) FROM users WHERE role = ?";
         Connection conn = null;

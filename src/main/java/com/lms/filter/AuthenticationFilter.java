@@ -45,6 +45,8 @@ public class AuthenticationFilter implements Filter {
                 path.equals("/login") ||
                 path.equals("/register.html") ||
                 path.equals("/register") ||
+                path.equals("/forgot-password.html") ||
+                path.equals("/forgot-password") ||
                 path.equals("/logout") ||
                 path.startsWith("/css/") ||
                 path.startsWith("/js/") ||

@@ -142,6 +142,31 @@ public class LmsSystemVerificationTest {
             failed++;
         }
 
+        // 7. Forgot Password / Password Reset Test
+        try {
+            UserDAO userDAO = new UserDAO();
+            User found = userDAO.getUserByEmailOrUsername("admin@college.edu");
+            if (found != null && "admin".equalsIgnoreCase(found.getUsername())) {
+                System.out.println("✅ [PASS] User identity resolved by email for password recovery: " + found.getEmail());
+                passed++;
+                
+                boolean updated = userDAO.updatePassword(found.getId(), "admin123");
+                if (updated) {
+                    System.out.println("✅ [PASS] Password reset successfully updated hashed password in DB.");
+                    passed++;
+                } else {
+                    System.err.println("❌ [FAIL] Password reset update failed.");
+                    failed++;
+                }
+            } else {
+                System.err.println("❌ [FAIL] Could not resolve user by email for password reset.");
+                failed++;
+            }
+        } catch (Exception e) {
+            System.err.println("❌ [FAIL] Password reset test threw exception: " + e.getMessage());
+            failed++;
+        }
+
         System.out.println("==================================================");
         System.out.println("VERIFICATION SUMMARY: " + passed + " PASSED, " + failed + " FAILED");
         System.out.println("==================================================");
